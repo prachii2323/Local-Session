@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <div class="container">
+    <h2>User Dashboard</h2>
+    <button id="clearButton">Clear Data</button>
+    <table id="userTable">
+      <thead>
+        <tr>
+          <th>Full Name:</th>
+          <th>Email:</th>
+          <th>Mobile No:</th>
+          <th>Username:</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+  <script src="script.js"></script>
+  <script>
+    //clear button
+    document.getElementById('clearButton').addEventListener('click', function() {
+      localStorage.removeItem('userData'); // Remove user data from local storage
+      location.reload(); // Reload the page to reflect the changes
+    });
+
+    // Retrieve user data from local storage and populate the table
+    var userData = JSON.parse(localStorage.getItem('userData'));
+    var tableBody = document.querySelector('#userTable tbody');
+
+    if (userData) {
+      userData.forEach(function(user) {
+        var row = tableBody.insertRow();
+        var fullNameCell = row.insertCell(0);
+        var emailCell = row.insertCell(1);
+        var mobileCell = row.insertCell(2);
+        var usernameCell = row.insertCell(3);
+
+        fullNameCell.innerHTML = user.fullName;
+        emailCell.innerHTML = user.email;
+        mobileCell.innerHTML = user.mobile;
+        usernameCell.innerHTML = user.username;
+      });
+    }
+  </script>
+</body>
+</html>
