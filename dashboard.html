@@ -9,7 +9,6 @@
 <body>
   <div class="container">
     <h2>User Dashboard</h2>
-    <button id="clearButton">Clear Data</button>
     <table id="userTable">
       <thead>
         <tr>
@@ -17,6 +16,7 @@
           <th>Email:</th>
           <th>Mobile No:</th>
           <th>Username:</th>
+          <th>Action</th> 
         </tr>
       </thead>
       <tbody>
@@ -25,13 +25,7 @@
   </div>
   <script src="script.js"></script>
   <script>
-    //clear button
-    document.getElementById('clearButton').addEventListener('click', function() {
-      localStorage.removeItem('userData'); // Remove user data from local storage
-      location.reload(); // Reload the page to reflect the changes
-    });
-
-    // Retrieve user data from local storage and populate the table
+   
     var userData = JSON.parse(localStorage.getItem('userData'));
     var tableBody = document.querySelector('#userTable tbody');
 
@@ -42,11 +36,32 @@
         var emailCell = row.insertCell(1);
         var mobileCell = row.insertCell(2);
         var usernameCell = row.insertCell(3);
+        var actionCell = row.insertCell(4); 
 
         fullNameCell.innerHTML = user.fullName;
         emailCell.innerHTML = user.email;
         mobileCell.innerHTML = user.mobile;
         usernameCell.innerHTML = user.username;
+
+        // Add individual buttons for update and delete
+        var updateButton = document.createElement('button');
+        updateButton.textContent = 'Update';
+        updateButton.addEventListener('click', function() {
+          // Handle update functionality here
+          // You can use user data to pre-fill a form for updating
+          console.log('Update button clicked for user:', user);
+        });
+
+        var deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.addEventListener('click', function() {
+          // Handle delete functionality here
+          // You may want to confirm the deletion with the user
+          console.log('Delete button clicked for user:', user);
+        });
+
+        actionCell.appendChild(updateButton);
+        actionCell.appendChild(deleteButton);
       });
     }
   </script>
